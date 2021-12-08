@@ -16,9 +16,9 @@ if [ ! -e /usr/bin/tmux ]; then
 else
     log "Tmux found in /usr/bin/tmux, installing dependencies ..."
     if [ "$OS" = "Arch Linux" ]; then
-        sudo pacman -S awk sed perl
+        sudo pacman -S sed perl xclip
     elif [ "$OS" = "Ubuntu" ]; then
-        sudo apt-get install awk sed perl
+        sudo apt-get install sed perl xclip
     elif [ "$OS" = "Darwin" ]; then
         brew install awk sed perl
     fi
@@ -37,12 +37,3 @@ ln -s -f `pwd`/.tmux/.tmux.conf ~/.tmux.conf
 cp `pwd`/.tmux/.tmux.conf.local ~/.tmux.conf.local
 
 succ "Tmux installed and configured."
-
-
-
-
-# sudo apt-get install tmux
-# cd
-# ln -s -f ./.tmux/.tmux.conf ~/.tmux.conf
-# cp ./.tmux/.tmux.conf.local ~/
-
