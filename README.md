@@ -17,8 +17,10 @@ This repo contains (nearly) all of the dot files which I need to configure my co
 ### Zsh, Oh-My-Zsh
 <div align=center><img src=img/zsh.png width=400></div>
 
++ OK on
+  + [ ] Ubuntu
 + NOT TESTED on
-  + [ ] Ubuntu, Arch Linux, MacOS
+  + [ ] Arch Linux, MacOS
 
 ### **Tmux**
 
