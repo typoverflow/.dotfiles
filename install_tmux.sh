@@ -1,33 +1,9 @@
-set +x
+set -x
 
 source utils.sh
 
 # --- install tmux
-
-if [ ! -e /usr/bin/tmux ]; then
-    log "Tmux not found, installing tmux and dependencies..."
-    if [ "$OS" = "Arch Linux" ]; then
-        sudo pacman -S tmux awk sed perl
-    elif [ "$OS" = "Ubuntu" ]; then
-        sudo apt-get install tmux awk sed perl
-    elif [ "$OS" = "Darwin" ]; then
-        brew install tmux awk sed perl
-    fi
-else
-    log "Tmux found in /usr/bin/tmux, installing dependencies ..."
-    if [ "$OS" = "Arch Linux" ]; then
-        sudo pacman -S sed perl xclip
-    elif [ "$OS" = "Ubuntu" ]; then
-        sudo apt-get install sed perl xclip
-    elif [ "$OS" = "Darwin" ]; then
-        brew install awk sed perl
-    fi
-fi
-
-if [ $? -ne 0 ]; then
-    error "Tmux installation failed."
-    exit 1
-fi
+try_install /usr/bin/tmux tmux awk sed perl
 
 # --- install configurations
 

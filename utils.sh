@@ -43,3 +43,26 @@ warn(){
 log(){
     >&1 echo -e "\033[34;1m[Log]\033[0m "$@
 }
+
+try_install(){
+    if [ ! -e $1 ]; then 
+        log "${@:2} not found, installing ${@:2} ..."
+        if [ "$OS" = "Arch Linux" ]; then
+            sudo pacman -S ${@:2}
+        elif [ "$OS" = "Ubuntu" ]; then
+            sudo apt-get install -y ${@:2}
+        elif [ "$OS" = "Darwin" ]; then
+            brew install ${@:2}
+        else
+            error "Unsupported OS: $OS"
+            exit 1
+        fi
+
+        if [ $? -ne 0 ]; then
+            error "${@:2} installation failed."
+            exit 1
+        else
+            log "${@:2} installation succeeded."
+        fi
+    fi
+}
