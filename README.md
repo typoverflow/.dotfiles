@@ -15,14 +15,14 @@ This repo contains (nearly) all of the dot files which I need to configure my co
 
 ## Contents
 ### Zsh, Oh-My-Zsh
-![](img/zsh.png)
+<div align=center><img src=img/zsh.png width=400></div>
 
 + NOT TESTED on
   + [ ] Ubuntu, Arch Linux, MacOS
 
 ### **Tmux**
 
-![](img/tmux.png)
+<div align=center><img src=img/tmux.png width=400></div>
 
 + OK on
   + [x] Ubuntu, Arch Linux
