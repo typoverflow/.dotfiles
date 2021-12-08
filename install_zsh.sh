@@ -9,7 +9,7 @@ try_install /bin/zsh zsh
 
 # --- install oh my zsh
 
-cd ${HOME} && sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+cd ${HOME} && sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 if [ $? -ne 0 ]; then
     error "Oh my zsh installation failed."
