@@ -11,6 +11,7 @@ try_install /bin/zsh zsh
 
 if [ ! -e "${HOME}/.oh-my-zsh" ]; then
     log "oh-my-zsh not found, installing..."
+    OLD_PWD = `pwd`
     cd ${HOME} && sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     if [ $? -ne 0 ]; then
@@ -19,6 +20,7 @@ if [ ! -e "${HOME}/.oh-my-zsh" ]; then
     else
         log "Oh my zsh installation succeeded."
     fi
+    cd ${OLD_PWD}
 fi
 
 # --- install autojump
