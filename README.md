@@ -4,7 +4,7 @@ This repo contains (nearly) all of the dot files which I need to configure my co
 ## Installation
 1. clone this repo with --recursive option.
     ```bash
-    git clone --recurse-submodules https://github.com/typoverflow/.dotfiles.git
+    git clone --recurse-submodules git@github.com:typoverflow/.dotfiles.git
     ```
 
 2. run the script inside the repo.

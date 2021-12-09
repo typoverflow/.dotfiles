@@ -3,4 +3,4 @@
 	url = git@github.com:typoverflow/.tmux.git
 [submodule ".zsh/chainy-zsh-theme"]
 	path = .zsh/chainy-zsh-theme
-	url = https://github.com/typoverflow/chainy-zsh-theme.git
+	url = git@github.com:typoverflow/chainy-zsh-theme.git
