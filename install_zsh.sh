@@ -31,7 +31,7 @@ try_install /usr/bin/autojump autojump
 
 if [ ! -e "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
     log "zsh-autosuggestions not found, installing..."
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone git@github.com:zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     
     if [ $? -ne 0 ]; then
         error "Zsh-autosuggestions installation failed."
