@@ -19,6 +19,8 @@ if [ ! -e "${HOME}/.oh-my-zsh" ]; then
     else
         log "Oh my zsh installation succeeded."
     fi
+else
+    log "found oh-my-zsh in ${HOME}/.oh-my-zsh."
 fi
 
 # --- install autojump
@@ -40,6 +42,7 @@ if [ ! -e "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
 fi
 
 # --- install chainy zsh theme
+log "configuring zshrc and theme from ./.zsh ..."
 scp `pwd`/.zsh/.zshrc ${HOME}/
 scp `pwd`/.zsh/chainy-zsh-theme/chainy.zsh-theme ${HOME}/.oh-my-zsh/themes/
 

@@ -64,5 +64,7 @@ try_install(){
         else
             log "${@:2} installation succeeded."
         fi
+    else
+        log "found ${@:2} in $1."
     fi
 }

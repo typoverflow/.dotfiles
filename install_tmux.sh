@@ -1,4 +1,4 @@
-set -x
+set +x
 
 source utils.sh
 
