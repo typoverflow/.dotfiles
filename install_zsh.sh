@@ -11,7 +11,7 @@ try_install /bin/zsh zsh
 
 if [ ! -e "${HOME}/.oh-my-zsh" ]; then
     log "oh-my-zsh not found, installing..."
-    bash `pwd`/.zsh/ohmyzsh_install_script.sh 
+    unset ZSH && bash `pwd`/.zsh/ohmyzsh_install_script.sh 
 
     if [ $? -ne 0 ]; then
         error "Oh my zsh installation failed."
