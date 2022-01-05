@@ -3,7 +3,7 @@ set +x
 source utils.sh
 
 # --- install tmux
-try_install /usr/bin/tmux tmux awk sed perl
+try_install /usr/bin/tmux tmux gawk sed perl
 
 # --- install configurations
 
