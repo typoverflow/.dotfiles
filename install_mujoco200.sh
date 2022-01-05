@@ -19,11 +19,11 @@ sudo apt-get install patchelf
 
 # --- Download key
 log "Downloading mjkey.txt ..."
-wget -O https://roboti.us/file/mjkey.txt "$MUJOCO_ROOT/mjkey.txt"
+wget -O="$MUJOCO_ROOT/mjkey.txt" https://roboti.us/file/mjkey.txt
 
 # --- Download mujoco200
 log "Downloading mujoco200 ..."
-wget -O https://www.roboti.us/download/mujoco200_linux.zip "$MUJOCO_ROOT/mujoco200_linux.zip"
+wget -O="$MUJOCO_ROOT/mujoco200_linux.zip" https://www.roboti.us/download/mujoco200_linux.zip 
 unzip $MUJOCO_ROOT/mujoco200_linux.zip -d $MUJOCO_ROOT && rm $MUJOCO_ROOT/mujoco200_linux.zip
 ln -s $MUJOCO_ROOT/mujoco200_linux $MUJOCO_ROOT/mujoco200
 
