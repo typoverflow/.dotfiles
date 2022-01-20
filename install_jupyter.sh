@@ -23,5 +23,5 @@ jupyter lab password
 
 jupyter lab --generate-config && mv .jupyter/jupyter_lab_config.py ~/.jupyter/jupyter_lab_config.py
 
-succ "JupyterLab installed. Listening port at 8889."\
+succ "JupyterLab installed. Listening port at 8889."
 nohup jupyter lab $HOME &
