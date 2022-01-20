@@ -15,7 +15,7 @@ if [ ! -d $MUJOCO_ROOT ]; then
 fi
 
 # --- Install dependencies
-sudo apt-get install patchelf
+sudo apt-get install patchelf libosmesa6-dev
 
 # --- Download key
 log "Downloading mjkey.txt ..."

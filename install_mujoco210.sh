@@ -15,7 +15,7 @@ if [ ! -d $MUJOCO_ROOT ]; then
 fi
 
 # --- Install dependencies
-sudo apt-get install patchelf
+sudo apt-get install patchelf libosmesa6-dev
 
 # --- Download mujoco210
 log "Downloading mujoco210 ..."
