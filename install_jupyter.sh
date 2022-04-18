@@ -18,10 +18,17 @@ fi
 log "Installing JupyterLab and its dependencies ..."
 pip3 install jupyterlab nodejs npm
 
-log "Setting password ..."
-jupyter lab password
 
-jupyter lab --generate-config && mv .jupyter/jupyter_lab_config.py ~/.jupyter/jupyter_lab_config.py
+jupyter lab --generate-config
 
-succ "JupyterLab installed. Listening port at 8889."
-nohup jupyter lab $HOME &
+log "Setting passwd for jupyter lab ..."
+passwd=`python -c "from jupyter_server.auth import passwd; print(passwd())"`
+echo "
+c.ServerApp.open_browser = False
+c.ServerApp.password = '$passwd'
+c.ServerApp.port = 8889
+c.ServerApp.allow_remote_access = True
+c.ServerApp.ip = '0.0.0.0'
+" >> ~/.jupyter/jupyter_lab_config.py
+
+succ "JupyterLab installed. Port 8889 will be used."
