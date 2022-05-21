@@ -16,21 +16,32 @@ This repo contains (nearly) all of the dot files which I need to configure my co
     ```
 
 ## Contents
+### Jupyter Lab
+Install Jupyter Lab within on command, simply `bash isntall_jupyter.sh` and enter your password. 
++ compatable with
+  + [x] Ubuntu
+  + [ ] MacOS
+
+### mujoco
+```bash
+bash install_mujoco200.sh
+bash install_mujoco210,sh
+```
+
 ### Zsh, Oh-My-Zsh
 <div align=center><img src=img/zsh.png width=400></div>
 
-+ OK on
-  + [ ] Ubuntu
-+ NOT TESTED on
-  + [ ] Arch Linux, MacOS
++ Compatable with
+  + [x] Ubuntu
+  + [x] ArchLinux
+  + [ ] MacOS
 
 ### **Tmux**
 
 <div align=center><img src=img/tmux.png width=400></div>
 
-+ OK on
++ Compatable with 
   + [x] Ubuntu, Arch Linux
-+ NOT TESTED on
   + [ ] MacOS
 
 This part is inspired by [Johnny4Fun](https://github.com/Johnny4Fun/.tmux).
