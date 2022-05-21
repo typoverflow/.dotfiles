@@ -1,6 +1,8 @@
 # \<dot\>Dotfiles
 This repo contains (nearly) all of the dot files which I need to configure my coding environment. To quickly reconstruct the environments and deploy these dot files, scripts are also included in this repo. 
 
+<div align="center"><img src="https://gist.githubusercontent.com/typoverflow/3f2d6daa0f0b6eb33934238dc1c025e7/raw/ea1787c5ddb83142ad688a5d4ab360fc809ab903/it-works-on-my-machine.jpg" width=200></div>
+
 ## Installation
 1. clone this repo with --recursive option.
     ```bash
