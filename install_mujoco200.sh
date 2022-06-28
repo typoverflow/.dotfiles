@@ -19,11 +19,11 @@ sudo apt-get install patchelf libosmesa6-dev
 
 # --- Download key
 log "Downloading mjkey.txt ..."
-wget -O "$MUJOCO_ROOT/mjkey.txt" https://roboti.us/file/mjkey.txt
+wget -O "$MUJOCO_ROOT/mjkey.txt" http://roboti.us/file/mjkey.txt
 
 # --- Download mujoco200
 log "Downloading mujoco200 ..."
-wget -O "$MUJOCO_ROOT/mujoco200_linux.zip" https://www.roboti.us/download/mujoco200_linux.zip 
+wget -O "$MUJOCO_ROOT/mujoco200_linux.zip" http://www.roboti.us/download/mujoco200_linux.zip 
 unzip $MUJOCO_ROOT/mujoco200_linux.zip -d $MUJOCO_ROOT && rm $MUJOCO_ROOT/mujoco200_linux.zip
 ln -s $MUJOCO_ROOT/mujoco200_linux $MUJOCO_ROOT/mujoco200
 
