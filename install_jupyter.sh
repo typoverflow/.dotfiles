@@ -17,7 +17,7 @@ fi
 # --- install jupyter lab and its dependencies
 log "Installing JupyterLab and its dependencies. Note that jupyter lab will be installed in base env, and you need to conda install ipykernel for other envs you need to show in your lab."
 pip3 install jupyterlab nodejs npm
-conda activate base && conda install nb_conda_kernels ipykernel
+conda activate base && conda install nb_conda_kernels ipykernel ipywidgets
 
 jupyter lab --generate-config
 
