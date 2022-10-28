@@ -68,3 +68,8 @@ try_install(){
         log "found ${@:2} in $1."
     fi
 }
+
+get_activated_conda(){
+    cmd='conda info | grep "active environment" | awk '"'{print \$4}'"
+    eval $cmd
+}

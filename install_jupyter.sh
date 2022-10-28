@@ -14,21 +14,52 @@ if [ ! -d "$HOME/anaconda3" ]; then
     exit 1
 fi
 
+# --- check install or add kernel
+warn "Install kernel or add new envs to existing kernel? "
+echo "i for installing, a for adding"
+read
+case $REPLY in
+    [aA] )
+        log "Adding new kernel ..."
+        op="add"
+        ;;
+    [iI] )
+        log "Installing jupyter lab ..."
+        op="install"
+        ;;
+esac
+
+# --- check conda env
+conda_act_env=$(get_activated_conda)
+warn "Operate in ${conda_act_env} env ?"
+read
+case $REPLY in 
+    [Nn]o )
+        error "Abort. " && exit 1
+        ;;
+esac
+
 # --- install jupyter lab and its dependencies
-log "Installing JupyterLab and its dependencies. Note that jupyter lab will be installed in base env, and you need to conda install ipykernel for other envs you need to show in your lab."
-pip3 install jupyterlab nodejs npm
-conda activate base && conda install nb_conda_kernels ipykernel ipywidgets
+case $op in
+    add )
+        log "Adding ${conda_act_env} to jupyter kernels"
+        conda install nb_conda_kernels ipykernel ipywidgets
+        ;;
+    install )
+        log "Installing jupyter lab in ${conda_act_env}"
+        pip3 install jupyterlab nodejs npm
+        conda install nb_conda_kernels ipykernel ipywidgets
+        jupyter lab --generate-config
 
-jupyter lab --generate-config
+        log "Setting passwd for jupyter lab ..."
+        passwd=`python -c "from jupyter_server.auth import passwd; print(passwd())"`
+        echo "
+        c.ServerApp.open_browser = False
+        c.ServerApp.password = '$passwd'
+        c.ServerApp.port = 8889
+        c.ServerApp.allow_remote_access = True
+        c.ServerApp.ip = '0.0.0.0'
+        " >> ~/.jupyter/jupyter_lab_config.py
+        ;;
 
-log "Setting passwd for jupyter lab ..."
-passwd=`python -c "from jupyter_server.auth import passwd; print(passwd())"`
-echo "
-c.ServerApp.open_browser = False
-c.ServerApp.password = '$passwd'
-c.ServerApp.port = 8889
-c.ServerApp.allow_remote_access = True
-c.ServerApp.ip = '0.0.0.0'
-" >> ~/.jupyter/jupyter_lab_config.py
-
-succ "JupyterLab installed. Port 8889 will be used."
+succ "All tasks done."
