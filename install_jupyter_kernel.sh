@@ -21,5 +21,5 @@ if [[ ! ${all_envs} =~ $1 ]]; then
 fi
 
 conda activate $1 && conda install nb_conda_kernels ipykernel ipywidgets
-python -m ipykernel install --user --name ${$1}
+python -m ipykernel install --user --name $1
 succ "Successfully installed kernel for ${1}."

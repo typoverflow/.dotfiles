@@ -44,20 +44,23 @@ esac
 case $op in
     add )
         log "Adding ${conda_act_env} to jupyter kernels"
-        bash install_jupyter_kernel.sh ${conda_act_env}
+        conda install nb_conda_kernels ipykernel ipywidgets
+        python -m ipykernel install --user --name $conda_act_env
         ;;
     install )
         log "Installing jupyter lab in ${conda_act_env}"
         pip3 install jupyterlab nodejs npm
         conda install nb_conda_kernels ipykernel ipywidgets
         jupyter lab --generate-config
-
         log "Setting passwd for jupyter lab ..."
         passwd=`python -c "from jupyter_server.auth import passwd; print(passwd())"`
+        log "specify a port number for jupyter lab to use:"
+        echo -n ">>> "
+        read
         echo "
         c.ServerApp.open_browser = False
         c.ServerApp.password = '$passwd'
-        c.ServerApp.port = 8889
+        c.ServerApp.port = ${REPLY}
         c.ServerApp.allow_remote_access = True
         c.ServerApp.ip = '0.0.0.0'
         " >> ~/.jupyter/jupyter_lab_config.py
