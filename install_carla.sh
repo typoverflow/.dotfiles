@@ -41,28 +41,22 @@ map_link=(
     ["0.9.13"]="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/AdditionalMaps_0.9.13.tar.gz"
 )
 
-
-declare -A install_procedure
-install_procedure=(){
-}
-
-
 # only supports ubuntu
-# TESTED_OS = ( "Ubuntu" )
-# if [ ! "${TESTED_OS[@]}" =~ "$OS" ]; then
-#     error "Only support installing carla on ${TESTED_OS[@]}"
-#     exit 1
-# fi
+TESTED_OS=( "Ubuntu" )
+if [[ ! "${TESTED_OS[@]}" =~ "$OS" ]]; then
+    error "Only support installing carla on ${TESTED_OS[@]}"
+    exit 1
+fi
 
 # --- check whether anaconda is installed
-# if [ ! -d "$HOME/anaconda3" ]; then
-#     error "Anaconda3 not found in $HOME/anaconda3. Please install anaconda3, activate the virtual env you wish to install carla in. "
-#     exit 1
-# fi
+if [ ! -d "$HOME/anaconda3" ]; then
+    error "Anaconda3 not found in $HOME/anaconda3. Please install anaconda3, activate the virtual env you wish to install carla in. "
+    exit 1
+fi
 
 # --- check conda env
 warn "Are you going to install in $(get_activated_conda) env? "
-echo -n "(yes) > "
+echo -n "(yes/no, default yes) > "
 read
 case $REPLY in
     [Nn]o )
@@ -79,12 +73,12 @@ if [ ! -d "$HOME/.carla" ]; then
     mkdir -p "$HOME/.carla"
 fi
 
-warn "which version of carla to install? options: ${ALL_VERSIONS[@]}, default ${ALL_VERSIONS[-1]}"
+warn "which version of carla to install? options: ${VERSIONS[@]}, default ${VERSIONS[-1]}"
 warn "(note that mixing different versions of carla can lead to undefined behaviors, please uninstall a pre-installed version if necessary.)"
 echo -n ">>> "
 read
 select_version=$REPLY
-if [ ! ${VERSIONS[@]} =~ $select_version ]; then
+if [[ ! ${VERSIONS[@]} =~ $select_version ]]; then
     error "version ${select_version} not available, aborting."
     exit 1
 fi
@@ -118,7 +112,8 @@ install1(){
             log "downloading additional maps ..."
             wget -O "$CARLA_ROOT/$version/Import/AdditionalMaps_$version.tar.gz" ${map_link[$version]}
             log "installing maps ..."
-            PWD=$CARLA_ROOT/$version && $CARLA_ROOT/$version/ImportAssets.sh
+            pushd $CARLA_ROOT/$version && ./ImportAssets.sh
+            popd
             ;;
     esac
     succ "All tasks done."
