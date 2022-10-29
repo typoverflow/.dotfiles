@@ -58,12 +58,11 @@ case $op in
         echo -n ">>> "
         read
         echo "
-        c.ServerApp.open_browser = False
-        c.ServerApp.password = '$passwd'
-        c.ServerApp.port = ${REPLY}
-        c.ServerApp.allow_remote_access = True
-        c.ServerApp.ip = '0.0.0.0'
-        " >> ~/.jupyter/jupyter_lab_config.py
+c.ServerApp.open_browser = False
+c.ServerApp.password = '$passwd'
+c.ServerApp.port = ${REPLY}
+c.ServerApp.allow_remote_access = True
+c.ServerApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_lab_config.py
         ;;
 esac
 
