@@ -16,7 +16,7 @@ fi
 
 # --- check install or add kernel
 warn "Install kernel or add new envs to existing kernel? "
-echo "i for installing, a for adding"
+echo -n "(i for installing, a for adding) >>> "
 read
 case $REPLY in
     [aA] )
@@ -32,6 +32,7 @@ esac
 # --- check conda env
 conda_act_env=$(get_activated_conda)
 warn "Operate in ${conda_act_env} env ?"
+echo -n "(yes/no) >>> "
 read
 case $REPLY in 
     [Nn]o )
@@ -43,7 +44,7 @@ esac
 case $op in
     add )
         log "Adding ${conda_act_env} to jupyter kernels"
-        conda install nb_conda_kernels ipykernel ipywidgets
+        bash install_jupyter_kernel.sh ${conda_act_env}
         ;;
     install )
         log "Installing jupyter lab in ${conda_act_env}"
@@ -61,5 +62,6 @@ case $op in
         c.ServerApp.ip = '0.0.0.0'
         " >> ~/.jupyter/jupyter_lab_config.py
         ;;
+esac
 
 succ "All tasks done."
