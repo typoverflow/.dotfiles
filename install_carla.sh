@@ -8,7 +8,9 @@ declare -a VERSIONS
 VERSIONS=(  
     # "0.8.2" "0.8.3" "0.8.4" 
     # "0.9.0" "0.9.1" "0.9.2" "0.9.3" "0.9.4" 
-    # "0.9.5" "0.9.6" "0.9.7" "0.9.8" "0.9.9"
+    # "0.9.5" "0.9.6" "0.9.7"
+    "0.9.8"
+    #"0.9.9"
     # "0.9.10" 
     # "0.9.11" 
     "0.9.12" "0.9.13"
@@ -37,6 +39,7 @@ binary_link=(
 
 declare -A map_link
 map_link=(
+    ["0.9.8"]="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/AdditionalMaps_0.9.8.tar.gz"
     ["0.9.12"]="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/AdditionalMaps_0.9.12.tar.gz"
     ["0.9.13"]="https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/AdditionalMaps_0.9.13.tar.gz"
 )
@@ -119,7 +122,62 @@ install1(){
     succ "All tasks done."
 }
 
+install2(){
+    local version=$1
+    if [ -d $CARLA_ROOT/$version ]; then
+        error "directory $CARLA_ROOT/$version not empty, aborting."
+        exit 1
+    else
+        mkdir -p $CARLA_ROOT/$version
+    fi
+
+    log "downloading version $version, which may take several minutes ..."
+    wget -O "$CARLA_ROOT/$version/CARLA_$version.tar.gz" ${binary_link[$version]}
+    if [ ! -f "$CARLA_ROOT/$version/CARLA_$version.tar.gz" ]; then
+        error "cala binary zip not found. aborting."
+    else
+        log "installing from $CARLA_ROOT/$version/CARLA_$version.tar.gz ..."
+        tar -zxvf "$CARLA_ROOT/$version/CARLA_$version.tar.gz" -C $CARLA_ROOT/$version/
+        rm "$CARLA_ROOT/$version/CARLA_$version.tar.gz"
+        # pip3 install $CARLA_ROOT/$version/PythonAPI/carla/dist/*cp37*.whl
+    fi
+
+    warn "install additional maps?"
+    echo -n "(yes/no, default no) >>> "
+    read
+    case $REPLY in 
+        [yY]es )
+            log "downloading additional maps ..."
+            wget -O "$CARLA_ROOT/$version/Import/AdditionalMaps_$version.tar.gz" ${map_link[$version]}
+            log "installing maps ..."
+            pushd $CARLA_ROOT/$version && ./ImportAssets.sh
+            popd
+            ;;
+    esac
+    
+    log "setting post-processing scripts for activating & deactivating env ..."
+    mkdir -p $CONDA_PREFIX/etc/conda/activate.d
+    mkdir -p $CONDA_PREFIX/etc/conda/deactivate.d
+    echo '
+export PYTHONPATH=$PYTHONPATH:'$CARLA_ROOT/$version'/PythonAPI
+export PYTHONPATH=$PYTHONPATH:'$CARLA_ROOT/$version'/PythonAPI/carla
+export PYTHONPATH=$PYTHONPATH:'$CARLA_ROOT/$version'/PythonAPI/carla/dist/carla-0.9.8-py3.5-linux-x86_64.egg
+' >>> $CONDA_PREFIX/etc/conda/activate.d/set_path.sh
+    echo "
+paths=(\`echo "'$PYTHONPATH'" | tr ':' ' '\`)
+PYTHONPATH=\":\"
+for p in "'"${paths[@]}"'"; do
+    if [[ ! "'$p'" =~ \"$CARLA_ROOT/$version\" ]]; then
+        PYTHONPATH="'$PYTHONPATH'":"'$p'"
+    fi
+done
+export PYTHONPATH
+" >>> $CONDA_PREFIX/etc/conda/deactivate.d/unset_path.sh
+    succ "All tasks done."
+}
+
 declare -A install_fn_registry=(
+    ["0.9.8"]=install2
     ["0.9.12"]=install1
     ["0.9.13"]=install1
 )

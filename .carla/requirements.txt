@@ -5,3 +5,5 @@ pynput
 pygame
 pypng
 Pillow
+dotmap
+networkx
