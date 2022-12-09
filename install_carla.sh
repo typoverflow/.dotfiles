@@ -162,7 +162,7 @@ install2(){
 export PYTHONPATH=$PYTHONPATH:'$CARLA_ROOT/$version'/PythonAPI
 export PYTHONPATH=$PYTHONPATH:'$CARLA_ROOT/$version'/PythonAPI/carla
 export PYTHONPATH=$PYTHONPATH:'$CARLA_ROOT/$version'/PythonAPI/carla/dist/carla-0.9.8-py3.5-linux-x86_64.egg
-' >>> $CONDA_PREFIX/etc/conda/activate.d/set_path.sh
+' >> $CONDA_PREFIX/etc/conda/activate.d/set_path.sh
     echo "
 paths=(\`echo "'$PYTHONPATH'" | tr ':' ' '\`)
 PYTHONPATH=\":\"
@@ -172,7 +172,7 @@ for p in "'"${paths[@]}"'"; do
     fi
 done
 export PYTHONPATH
-" >>> $CONDA_PREFIX/etc/conda/deactivate.d/unset_path.sh
+" >> $CONDA_PREFIX/etc/conda/deactivate.d/unset_path.sh
     succ "All tasks done."
 }
 
